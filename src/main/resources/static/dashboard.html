@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Dashboard</title>
+
+<style>
+body {
+    font-family: Arial;
+    background: #222;
+    color: white;
+    text-align: center;
+}
+button {
+    padding: 10px 20px;
+    margin: 10px;
+}
+</style>
+</head>
+
+<body>
+
+<h1>Dashboard</h1>
+
+<button onclick="publicApi()">Public API</button>
+<button onclick="userApi()">User API</button>
+<button onclick="adminApi()">Admin API</button>
+
+<h2 id="result"></h2>
+
+<script>
+
+
+function publicApi() {
+    fetch('/api/public')
+    .then(res => res.text())
+    .then(data => result.innerText = data);
+}
+
+function userApi() {
+    fetch('/api/user', {
+    	headers: {
+    	    'Authorization': 'Bearer ' + localStorage.getItem("token")
+    	} })
+    .then(res => res.text())
+    .then(data => result.innerText = data);
+}
+
+function adminApi() {
+    fetch('/api/admin', {
+    	headers: {
+    	    'Authorization': 'Bearer ' + localStorage.getItem("token")
+    	} })
+    .then(res => res.text())
+    .then(data => result.innerText = data);
+}
+
+</script>
+
+</body>
+</html>

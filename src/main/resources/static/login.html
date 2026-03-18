@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Login</title>
+<style>
+body {
+    font-family: Arial;
+    background: linear-gradient(to right, #000428, #004e92);
+    color: white;
+    text-align: center;
+}
+.box {
+    margin-top: 100px;
+    background: rgba(255,255,255,0.1);
+    padding: 30px;
+    width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 10px;
+}
+input {
+    width: 90%;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+    border: none;
+}
+button {
+    padding: 10px 20px;
+    background: #00c6ff;
+    border: none;
+    border-radius: 5px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+<h2>Login</h2>
+
+<input id="email" placeholder="Email"><br>
+<input id="password" type="password" placeholder="Password"><br>
+
+<button onclick="login()">Login</button>
+
+</div>
+
+<script>
+function login() {
+    fetch('/api/auth/login', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+            email: email.value,
+            password: password.value
+        })
+    })
+    .then(res => res.text())
+    .then(token => {
+        localStorage.setItem("token", token);
+
+        alert("Login Successful!\n\nToken:\n" + token);
+
+        window.location.href = "dashboard.html";
+    });
+}
+</script>
+
+</body>
+</html>
